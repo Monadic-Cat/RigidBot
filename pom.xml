@@ -33,17 +33,26 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api</artifactId>
+        <version>2.13.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>2.13.1</version>
+    </dependency>
+    <dependency>
         <groupId>org.javacord</groupId>
         <artifactId>javacord</artifactId>
         <version>3.0.5</version>
         <type>pom</type>
     </dependency>
-	<!-- https://mvnrepository.com/artifact/com.github.berkesa/datatree-core -->
-<dependency>
-    <groupId>com.github.berkesa</groupId>
-    <artifactId>datatree-core</artifactId>
-    <version>1.0.14</version>
-</dependency>
+    <dependency>
+        <groupId>com.github.berkesa</groupId>
+        <artifactId>datatree-core</artifactId>
+        <version>1.0.14</version>
+    </dependency>
 
   </dependencies>
 

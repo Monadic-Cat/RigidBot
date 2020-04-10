@@ -1,4 +1,3 @@
-
 import org.javacord.api.DiscordApi
 import org.javacord.api.DiscordApiBuilder
 
