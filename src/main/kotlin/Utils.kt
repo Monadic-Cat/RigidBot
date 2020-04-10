@@ -3,7 +3,7 @@ import org.javacord.api.entity.channel.*
 import org.javacord.api.entity.message.Message
 
 fun readFile(name: String): String {
-	return File(name).readText(Charsets.UTF_8)
+	return File(name).readText(Charsets.UTF_8).trim()
 }
 fun writeFile(name: String, text: String) {
 	File(name).writeText(text)
