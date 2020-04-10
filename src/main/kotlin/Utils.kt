@@ -10,8 +10,8 @@ fun writeFile(name: String, text: String) {
 }
 
 fun textChannel(message: Message): ServerTextChannel {
-    return message.getChannel().asServerTextChannel().get()
+	return message.getChannel().asServerTextChannel().get()
 }
 fun replyText(channel: ServerTextChannel, text: String) {
-    channel.sendMessage(text)
+	channel.sendMessage(text)
 }
