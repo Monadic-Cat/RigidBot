@@ -3,10 +3,14 @@ import org.javacord.api.entity.channel.*
 import org.javacord.api.entity.message.Message
 
 fun readFile(name: String): String {
-	return File(name).readText(Charsets.UTF_8).trim()
+	val file = File(name)
+	if (!file.exists()) file.createNewFile()
+	return file.readText(Charsets.UTF_8).trim()
 }
 fun writeFile(name: String, text: String) {
-	File(name).writeText(text)
+	val file = File(name)
+	if (!file.exists()) file.createNewFile()
+	file.writeText(text)
 }
 
 fun textChannel(message: Message): ServerTextChannel {

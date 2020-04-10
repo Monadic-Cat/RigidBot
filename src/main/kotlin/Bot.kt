@@ -7,6 +7,8 @@ val commands = arrayListOf<Command>();
 
 fun main() {
 	println("Setting up...")
+	loadConfig()
+	configHandler()
 	commands.add(Command("ping", "Says pong.", "ping", { args, message ->
 		if (args.size != 0) {
 			false
