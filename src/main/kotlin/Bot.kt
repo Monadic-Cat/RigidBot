@@ -90,6 +90,30 @@ fun main() {
 		}
 		true
 	}))
+	commands.add(Command("purge", "Deletes a specified number of messages up to 100", listOf("purge <number>"), {args, message ->
+		if (args.size != 1) {
+		    false
+		} else {
+		    if(!textChannel(message).canManageMessages(api.getYourself())) {
+			   replyText(textChannel(message), "Error: I am lacking permissions to do that")
+		    } else if (!message.getAuthor().canManageMessagesInTextChannel()) {
+			replyText(textChannel(message), "Error: You are lacking permission to delete messages")
+		    } else {
+			   try {
+			       val numberOfMessages = args[0].toInt()
+			       
+			       if (numberOfMessages < -1 || numberOfMessages > 100) {
+				   replyText(textChannel(message), "Error: Can't delete " + numberOfMessages + " messages!")
+			       } else {
+				   textChannel(message).bulkDelete(textChannel(message).getMessages(numberOfMessages).join())
+			       }
+			   } catch(e: NumberFormatException) {
+		               replyText(textChannel(message), "Error: Invalid number " + args[0])
+			   }
+		    }
+		    true
+		}
+	}))
 
 	api.addMessageCreateListener { e ->
 		val message = e.getMessage()
