@@ -10,6 +10,18 @@ fun main() {
 	println("Setting up...")
 	loadConfig()
 	configHandler()
+	commands.add(Command("help", "Shows this page.", listOf("help"), { args, message ->
+		if (args.size != 0) {
+			false
+		} else {
+			val list = arrayListOf<String>()
+			for (command in commands) {
+				list.add("** - " + command.name + ":** " + command.desc)
+			}
+			replyPage(message, "***Commands***", list, Color(255, 0, 255))
+			true
+		}
+	}))
 	commands.add(Command("eval", "Evaluates JavaScript code.", listOf("eval [code...]"), { args, message ->
 		if (args.size == 0) {
 			false
