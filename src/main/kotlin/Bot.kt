@@ -11,6 +11,9 @@ fun main() {
 	println("Setting up...")
 	loadConfig()
 	configHandler()
+
+	val api: DiscordApi = DiscordApiBuilder().setToken(readFile(".env")).login().join()
+	
 	commands.add(Command("help", "Shows this page.", listOf("help"), { args, message ->
 		if (args.size != 0) {
 			false
@@ -53,8 +56,6 @@ fun main() {
 			true
 		}
 	}))
-	val api: DiscordApi = DiscordApiBuilder().setToken(readFile(".env")).login().join()
-
 	commands.add(Command("geval", "Evals groovy code.", listOf("geval <code>"), { args, message ->
 		if (api.getOwnerId() == message.getAuthor().getId()) {
 			try {
@@ -66,7 +67,7 @@ fun main() {
 			} catch (e: Throwable) {
 				replyText(textChannel(message), "Error: ```groovy\n" + e.toString() + "\n```")
 			}
-		} else
+		} else {
 			replyText(textChannel(message), "<@" + message.getAuthor().getId() + ">, you don't own me! 😿")
 		}
 		true
