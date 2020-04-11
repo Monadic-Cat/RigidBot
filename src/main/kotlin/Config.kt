@@ -15,6 +15,7 @@ fun configHandler() {
 	(Thread {
 		while(true) {
 			Thread.sleep(3000)
+			saveConfig()
 		}
 	}).start()
 }
