@@ -14,7 +14,19 @@ fun main() {
 
 	val api: DiscordApi = DiscordApiBuilder().setToken(readFile(".env")).login().join()
 	
-	commands.add(Command("config", "Configures the current guild.", listOf("config symbol [text?]"), { args, message ->
+	commands.add(Command("help", "Shows this page.", listOf("help"), { args, message ->
+		if (args.size != 0) {
+			false
+		} else {
+			val list = arrayListOf<String>()
+			for (command in commands) {
+				list.add("** - " + command.name + ":** " + command.desc)
+		  	}
+			replyPage(message, "***Commands***", list, Color(255, 0, 255))
+		  	true
+		}
+	}))
+	commands.add(Command("config", "Configures the guild.", listOf("config symbol [text?]"), { args, message ->
 		if (args.size == 1 && args[0] == "symbol") {
 			val guildid = guildId(message)
 			val guild = guildConfig(guildid)
@@ -32,19 +44,7 @@ fun main() {
 			false
 		}
 	}))
-	commands.add(Command("help", "Shows this page.", listOf("help"), { args, message ->
-		if (args.size != 0) {
-			false
-		} else {
-			val list = arrayListOf<String>()
-			for (command in commands) {
-				list.add("** - " + command.name + ":** " + command.desc)
-		  	}
-			replyPage(message, "***Commands***", list, Color(255, 0, 255))
-		  	true
-		}
-	}))
-	commands.add(Command("eval", "Evaluates JavaScript code.", listOf("eval [code...]"), { args, message ->
+	commands.add(Command("eval", "Runs javascript code.", listOf("eval [code...]"), { args, message ->
 		if (args.size == 0) {
 			false
 		} else {
@@ -74,7 +74,7 @@ fun main() {
 			true
 		}
 	}))
-	commands.add(Command("geval", "Evals groovy code.", listOf("geval <code>"), { args, message ->
+	commands.add(Command("groovy", "Runs groovy code.", listOf("groovy [code...]"), { args, message ->
 		if (api.getOwnerId() == message.getAuthor().getId()) {
 			try {
 				val sharedData = Binding()
@@ -90,7 +90,7 @@ fun main() {
 		}
 		true
 	}))
-	commands.add(Command("purge", "Deletes a specified number of messages up to 100", listOf("purge <number>"), {args, message ->
+	commands.add(Command("purge", "Clears up to a hundred messages.", listOf("purge [number]"), {args, message ->
 		if (args.size != 1) {
 		    false
 		} else {
