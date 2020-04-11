@@ -1,3 +1,5 @@
+import groovy.lang.Binding
+import groovy.lang.GroovyShell
 import java.awt.Color
 import org.javacord.api.DiscordApi
 import org.javacord.api.DiscordApiBuilder
@@ -56,6 +58,27 @@ fun main() {
               }
     }))
     val api: DiscordApi = DiscordApiBuilder().setToken(readFile(".env")).login().join()
+
+    commands.add(Command("geval", "Evals groovy code.", listOf("geval <code>"),
+        { args, message ->
+              if (api.getOwnerId() == message.getAuthor().getId()) {
+          try {
+                  val sharedData = Binding()
+                  val shell = GroovyShell(sharedData)
+
+                  sharedData.setProperty("message", message)
+                  val result = shell.evaluate(message.getContent().substring(7))
+                  replyText(textChannel(message), "" + result)
+          } catch (e: Throwable) {
+              replyText(textChannel(message), "Error: ```groovy\n" + e.toString() + "\n```")
+          }
+                  true
+              } else {
+                  replyText(textChannel(message), "<@" + message.getAuthor().getId() + ">, you don't own me! 😿")
+                  true
+              }
+    }))
+
     api.addMessageCreateListener { e ->
         val message = e.getMessage()
         val content = message.getContent()
