@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.rigidity.rigidbot</groupId>
@@ -21,15 +21,15 @@
   </properties>
 
   <dependencies>
-	<dependency>
-		<groupId>org.javadelight</groupId>
-		<artifactId>delight-nashorn-sandbox</artifactId>
-		<version>0.1.28</version>
-	</dependency>
     <dependency>
-        <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-stdlib-jdk8</artifactId>
-        <version>${kotlin.version}</version>
+      <groupId>org.javadelight</groupId>
+      <artifactId>delight-nashorn-sandbox</artifactId>
+      <version>0.1.28</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <version>${kotlin.version}</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -38,27 +38,31 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-api</artifactId>
-        <version>2.13.1</version>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.13.1</version>
     </dependency>
     <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>2.13.1</version>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.13.1</version>
     </dependency>
     <dependency>
-        <groupId>org.javacord</groupId>
-        <artifactId>javacord</artifactId>
-        <version>3.0.5</version>
-        <type>pom</type>
+      <groupId>org.javacord</groupId>
+      <artifactId>javacord</artifactId>
+      <version>3.0.5</version>
+      <type>pom</type>
     </dependency>
     <dependency>
-        <groupId>com.github.berkesa</groupId>
-        <artifactId>datatree-core</artifactId>
-        <version>1.0.14</version>
+      <groupId>com.github.berkesa</groupId>
+      <artifactId>datatree-core</artifactId>
+      <version>1.0.14</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy</artifactId>
+      <version>2.5.11</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -106,82 +110,122 @@
       </plugins>
     </pluginManagement>
     <plugins>
-    <plugin>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-maven-plugin</artifactId>
-            <version>${kotlin.version}</version>
-            <executions>
-                <execution>
-                    <id>compile</id>
-                    <goals> <goal>compile</goal> </goals>
-                    <configuration>
-                        <sourceDirs>
-                            <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/main/java</sourceDir>
-                        </sourceDirs>
-                    </configuration>
-                </execution>
-                <execution>
-                    <id>test-compile</id>
-                    <goals> <goal>test-compile</goal> </goals>
-                    <configuration>
-                        <sourceDirs>
-                            <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                            <sourceDir>${project.basedir}/src/test/java</sourceDir>
-                        </sourceDirs>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.5.1</version>
-            <executions>
-                <!-- Replacing default-compile as it is treated specially by maven -->
-                <execution>
-                    <id>default-compile</id>
-                    <phase>none</phase>
-                </execution>
-                <!-- Replacing default-testCompile as it is treated specially by maven -->
-                <execution>
-                    <id>default-testCompile</id>
-                    <phase>none</phase>
-                </execution>
-                <execution>
-                    <id>java-compile</id>
-                    <phase>compile</phase>
-                    <goals> <goal>compile</goal> </goals>
-                </execution>
-                <execution>
-                    <id>java-test-compile</id>
-                    <phase>test-compile</phase>
-                    <goals> <goal>testCompile</goal> </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-assembly-plugin</artifactId>
-    <version>2.6</version>
-    <executions>
-        <execution>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <goals> <goal>compile</goal> </goals>
+            <configuration>
+              <sourceDirs>
+                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                <sourceDir>${project.basedir}/src/main/java</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <goals> <goal>test-compile</goal> </goals>
+            <configuration>
+              <sourceDirs>
+                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <executions>
+          <!-- Replacing default-compile as it is treated specially by maven -->
+          <execution>
+            <id>default-compile</id>
+            <phase>none</phase>
+          </execution>
+          <!-- Replacing default-testCompile as it is treated specially by maven -->
+          <execution>
+            <id>default-testCompile</id>
+            <phase>none</phase>
+          </execution>
+          <execution>
+            <id>java-compile</id>
+            <phase>compile</phase>
+            <goals> <goal>compile</goal> </goals>
+          </execution>
+          <execution>
+            <id>java-test-compile</id>
+            <phase>test-compile</phase>
+            <goals> <goal>testCompile</goal> </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-assembly-plugin</artifactId>
+	<version>2.6</version>
+	<executions>
+          <execution>
             <id>make-assembly</id>
             <phase>package</phase>
             <goals> <goal>single</goal> </goals>
             <configuration>
-                <archive>
-                    <manifest>
-                        <mainClass>BotKt</mainClass>
-                    </manifest>
-                </archive>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
+              <archive>
+                <manifest>
+                  <mainClass>BotKt</mainClass>
+                </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
             </configuration>
-        </execution>
-    </executions>
-</plugin>
+          </execution>
+	</executions>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-antrun-plugin</artifactId>
+	<version>1.7</version>
+	<executions>
+          <execution>
+            <id>ktlint</id>
+            <phase>verify</phase>
+            <configuration>
+              <target name="ktlint">
+		<java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
+                      classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
+                  <arg value="src/**/*.kt"/>
+		</java>
+              </target>
+            </configuration>
+            <goals><goal>run</goal></goals>
+          </execution>
+          <execution>
+            <id>ktlint-format</id>
+            <configuration>
+              <target name="ktlint">
+                <java taskname="ktlint" dir="${basedir}" fork="true" failonerror="true"
+                      classname="com.pinterest.ktlint.Main" classpathref="maven.plugin.classpath">
+                  <arg value="-F"/>
+                  <arg value="src/**/*.kt"/>
+                </java>
+              </target>
+            </configuration>
+            <goals><goal>run</goal></goals>
+          </execution>
+	</executions>
+	<dependencies>
+	  <dependency>
+            <groupId>com.pinterest</groupId>
+            <artifactId>ktlint</artifactId>
+            <version>0.36.0</version>
+	  </dependency>
+	</dependencies>
+      </plugin>
     </plugins>
   </build>
 </project>
