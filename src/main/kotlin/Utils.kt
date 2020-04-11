@@ -22,6 +22,9 @@ fun writeFile(name: String, text: String) {
 fun textChannel(message: Message): ServerTextChannel {
     return message.getChannel().asServerTextChannel().get()
 }
+fun guildId(message: Message): Long {
+	return textChannel(message).getServer().getId()
+}
 
 fun clamp(text: String, a: Int, b: Int): String {
     var operating = text

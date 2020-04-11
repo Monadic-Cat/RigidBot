@@ -8,6 +8,7 @@
 *.ear
 *.zip
 *.tar.gz
+*.json
 *.rar
 hs_err_pid*
 .*

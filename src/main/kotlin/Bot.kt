@@ -14,6 +14,24 @@ fun main() {
 
 	val api: DiscordApi = DiscordApiBuilder().setToken(readFile(".env")).login().join()
 	
+	commands.add(Command("config", "Configures the current guild.", listOf("config symbol [text?]"), { args, message ->
+		if (args.size == 1 && args[0] == "symbol") {
+			val guildid = guildId(message)
+			val guild = guildConfig(guildid)
+			val symbol = guild.get("symbol").asString()
+			replyText(textChannel(message), "The guild symbol is **" + symbol + "**")
+			true
+		} else if (args.size >= 2 && args[0] == "symbol") {
+			val guildid = guildId(message)
+			val guild = guildConfig(guildid)
+			val text = joinList(args.drop(1), " ")
+			guild.put("symbol", text)
+			replyText(textChannel(message), "The guild symbol is now **" + text + "**")
+			true
+		} else {
+			false
+		}
+	}))
 	commands.add(Command("help", "Shows this page.", listOf("help"), { args, message ->
 		if (args.size != 0) {
 			false
@@ -75,16 +93,19 @@ fun main() {
 
 	api.addMessageCreateListener { e ->
 		val message = e.getMessage()
-		val content = message.getContent()
-		val symbol = "$"
-		if (!message.getAuthor().isBotUser() && content.startsWith(symbol) && message.getChannel() is ServerTextChannel) {
-			val components = content.substring(symbol.length).split(" ")
-			val name = components[0]
-			val args = components.drop(1)
-			for (command in commands) {
-				if (name == command.name) {
-					if (!command.func(args, message)) {
-						replyPage(message, "***Usages***", command.usage, Color.ORANGE)
+		if (message.getChannel() is ServerTextChannel) {
+			val content = message.getContent()
+			val channel = message.getChannel() as ServerTextChannel
+			val symbol = guildConfig(channel.getServer().getId()).get("symbol").asString()
+			if (!message.getAuthor().isBotUser() && content.startsWith(symbol)) {
+				val components = content.substring(symbol.length).split(" ")
+				val name = components[0]
+				val args = components.drop(1)
+				for (command in commands) {
+					if (name == command.name) {
+						if (!command.func(args, message)) {
+							replyPage(message, "***Usages***", command.usage, Color.ORANGE)
+						}
 					}
 				}
 			}
